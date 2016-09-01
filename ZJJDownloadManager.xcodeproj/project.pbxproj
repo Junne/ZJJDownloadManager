@@ -15,6 +15,8 @@
 		F5C1D0701D76ABEE00042DA1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5C1D06E1D76ABEE00042DA1 /* LaunchScreen.storyboard */; };
 		F5C1D07B1D76ABEF00042DA1 /* ZJJDownloadManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F5C1D07A1D76ABEF00042DA1 /* ZJJDownloadManagerTests.m */; };
 		F5C1D0861D76ABEF00042DA1 /* ZJJDownloadManagerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = F5C1D0851D76ABEF00042DA1 /* ZJJDownloadManagerUITests.m */; };
+		F5C1D0961D76C54C00042DA1 /* ZJJDownloadSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F5C1D0951D76C54C00042DA1 /* ZJJDownloadSessionManager.m */; };
+		F5C1D0991D76CE3500042DA1 /* ZJJDownloadSessionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F5C1D0981D76CE3500042DA1 /* ZJJDownloadSessionModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,10 @@
 		F5C1D0811D76ABEF00042DA1 /* ZJJDownloadManagerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZJJDownloadManagerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5C1D0851D76ABEF00042DA1 /* ZJJDownloadManagerUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZJJDownloadManagerUITests.m; sourceTree = "<group>"; };
 		F5C1D0871D76ABEF00042DA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F5C1D0941D76C54C00042DA1 /* ZJJDownloadSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJJDownloadSessionManager.h; sourceTree = "<group>"; };
+		F5C1D0951D76C54C00042DA1 /* ZJJDownloadSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJJDownloadSessionManager.m; sourceTree = "<group>"; };
+		F5C1D0971D76CE3500042DA1 /* ZJJDownloadSessionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJJDownloadSessionModel.h; sourceTree = "<group>"; };
+		F5C1D0981D76CE3500042DA1 /* ZJJDownloadSessionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJJDownloadSessionModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +107,7 @@
 		F5C1D05F1D76ABEE00042DA1 /* ZJJDownloadManager */ = {
 			isa = PBXGroup;
 			children = (
+				F5C1D0931D76AC4D00042DA1 /* ZJJDownloadManager */,
 				F5C1D0631D76ABEE00042DA1 /* AppDelegate.h */,
 				F5C1D0641D76ABEE00042DA1 /* AppDelegate.m */,
 				F5C1D0661D76ABEE00042DA1 /* ViewController.h */,
@@ -138,6 +145,17 @@
 				F5C1D0871D76ABEF00042DA1 /* Info.plist */,
 			);
 			path = ZJJDownloadManagerUITests;
+			sourceTree = "<group>";
+		};
+		F5C1D0931D76AC4D00042DA1 /* ZJJDownloadManager */ = {
+			isa = PBXGroup;
+			children = (
+				F5C1D0941D76C54C00042DA1 /* ZJJDownloadSessionManager.h */,
+				F5C1D0951D76C54C00042DA1 /* ZJJDownloadSessionManager.m */,
+				F5C1D0971D76CE3500042DA1 /* ZJJDownloadSessionModel.h */,
+				F5C1D0981D76CE3500042DA1 /* ZJJDownloadSessionModel.m */,
+			);
+			path = ZJJDownloadManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -271,8 +289,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5C1D0681D76ABEE00042DA1 /* ViewController.m in Sources */,
+				F5C1D0991D76CE3500042DA1 /* ZJJDownloadSessionModel.m in Sources */,
 				F5C1D0651D76ABEE00042DA1 /* AppDelegate.m in Sources */,
 				F5C1D0621D76ABEE00042DA1 /* main.m in Sources */,
+				F5C1D0961D76C54C00042DA1 /* ZJJDownloadSessionManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
