@@ -34,6 +34,8 @@
 
 - (void)cancelBackgroundSessionTasks;
 
+- (void)suspendDownloadModel:(ZJJDownloadSessionModel *)downloadModel;
+
 - (void)resumeDownloadModel:(ZJJDownloadSessionModel *)downloadModel;
 
 

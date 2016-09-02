@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ZJJDownloadSessionManager.h"
+#import <CommonCrypto/CommonDigest.h>
 
 
 @interface ZJJDownloadSessionManager ()
@@ -29,6 +30,7 @@
 @property (nonatomic, assign) ZJJDownloadState state;
 @property (nonatomic, strong) NSURLSessionDownloadTask *sessionTask;
 @property (nonatomic, strong) NSData *resumeData;
+@property (nonatomic, assign) BOOL manualCancel;
 
 
 @end
@@ -77,6 +79,13 @@
     }
 }
 
+- (void)suspendDownloadModel:(ZJJDownloadSessionModel *)downloadModel
+{
+    if (!downloadModel.manualCancel) {
+        downloadModel.manualCancel = YES;
+    }
+}
+
 
 - (void)resumeDownloadModel:(ZJJDownloadSessionModel *)downloadModel
 {
@@ -89,8 +98,25 @@
     }
     
     if (!downloadModel.sessionTask || downloadModel.sessionTask.state == NSURLSessionTaskStateCanceling) {
-//        NSData *resumeData = [self resu]
+        NSData *resumeData = [self resumeDownloadFileDataWithDownloadModel:downloadModel];
+        
+        if (resumeData.length > 0) {
+            downloadModel.sessionTask = [self.session downloadTaskWithResumeData:resumeData];
+        } else {
+            NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:downloadModel.downloadURL]];
+            downloadModel.sessionTask = [self.session downloadTaskWithRequest:request];
+        }
+        downloadModel.sessionTask.taskDescription = downloadModel.downloadURL;
     }
+    
+    if (![self.downloadModelDictionary objectForKey:downloadModel.downloadURL]) {
+        self.downloadModelDictionary[downloadModel.downloadURL] = downloadModel;
+    }
+    
+    [downloadModel.sessionTask resume];
+    
+    downloadModel.state = ZJJDownloadStateInProgress;
+    [self downloadModel:downloadModel changeState:ZJJDownloadStateInProgress filePath:nil error:nil];
 }
 
 
@@ -279,19 +305,38 @@
     }
 }
 
-//- (NSData *)resumeDownloadFileDataWithDownloadModel:(ZJJDownloadSessionModel *)downloadModel
-//{
-//    if (downloadModel.resumeData) {
-//        return downloadModel.resumeData;
-//    }
-//    
-//    NSString *resumeFielDataPath = [self resumeFileDataWithDownloadURL:downloadModel.downloadURL];
-//    
-//}
-//
-//- (NSString *)resumeFileDataWithDownloadURL:(NSString *)downloadURL
-//{
-//    
-//}
+- (NSData *)resumeDownloadFileDataWithDownloadModel:(ZJJDownloadSessionModel *)downloadModel
+{
+    if (downloadModel.resumeData) {
+        return downloadModel.resumeData;
+    }
+    
+    NSString *resumeFileDataPath = [self resumeFileDataWithDownloadURL:downloadModel.downloadURL];
+    if ([self.fileManager fileExistsAtPath:resumeFileDataPath]) {
+        NSData *resumeData = [NSData dataWithContentsOfFile:resumeFileDataPath];
+        return resumeData;
+    }
+    return nil;
+}
+
+- (NSString *)resumeFileDataWithDownloadURL:(NSString *)downloadURL
+{
+    NSString *resumeFileName = [[self class] md5:downloadURL];
+    return [self.downloadPath stringByAppendingPathComponent:resumeFileName];
+}
+
++ (NSString *)md5:(NSString *)inputString
+{
+    const char *cStr = [inputString UTF8String];
+    unsigned char digest[CC_MD5_DIGEST_LENGTH];
+    
+    CC_MD5(cStr, (CC_LONG)strlen(cStr), digest);
+    
+    NSMutableString *result = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH];
+    for (int i = 0; i < CC_MD5_DIGEST_LENGTH; i ++) {
+        [result appendFormat:@"%02X", digest[i]];
+    }
+    return result;
+}
 
 @end
