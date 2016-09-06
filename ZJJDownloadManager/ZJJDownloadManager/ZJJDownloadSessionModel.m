@@ -15,6 +15,7 @@
 @property (nonatomic, strong) NSString *fileName;
 @property (nonatomic, strong) NSString *downloadPath;
 @property (nonatomic, strong) NSString *filePath;
+@property (nonatomic, strong) NSDate   *downloadDate;
 @property (nonatomic, assign) ZJJDownloadState downloadState;
 @property (nonatomic, strong) NSURLSessionDownloadTask *sessionTask;
 
@@ -28,6 +29,7 @@
 @property (nonatomic, assign) int64_t totalBytesExpectedToWrite;
 @property (nonatomic, assign) float progress;
 @property (nonatomic, assign) float speed;
+@property (nonatomic, assign) int remainTime;
 
 @end
 
@@ -82,5 +84,12 @@
     }
     return _filePath;
 }
+
+@end
+
+
+@implementation ZJJDownloadProgress
+
+
 
 @end

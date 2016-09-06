@@ -25,6 +25,10 @@
 @property (nonatomic, assign) NSInteger maxDownloadCount;
 @property (nonatomic, assign) BOOL isBatchDownload;
 
+@property (nonatomic, copy) void (^backgroundSessionCompletionHandler)();
+
+@property (nonatomic, copy) NSString *(^backgroundSessionDownloadCompletedBlock)(NSString *downloadURL);
+
 @property (nonatomic, weak) id<ZJJDownloadDelegate> delegate;
 
 
@@ -38,7 +42,11 @@
 
 - (void)resumeDownloadModel:(ZJJDownloadSessionModel *)downloadModel;
 
+- (void)cancelFileDownloadModel:(ZJJDownloadSessionModel *)downloadModel;
 
+- (void)deleteFileDownload:(ZJJDownloadSessionModel *)downloadModel;
+
+- (void)deleteAllFiledWithDownloadDirectory:(NSString *)downloadDirectory;
 
 - (ZJJDownloadSessionModel *)startDownloadWithURLString:(NSString *)URLString toDestinationPath:(NSString *)destinationPath progress:(ZJJDownloadProgressBlock)downloadProgress state:(ZJJDownloadStateBlock)state;
 

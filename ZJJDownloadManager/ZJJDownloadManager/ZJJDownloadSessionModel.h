@@ -51,6 +51,7 @@ typedef void (^ZJJDownloadStateBlock)(ZJJDownloadState state, NSString *filePath
 @property (nonatomic, assign, readonly) int64_t totalBytesExpectedToWrite;
 @property (nonatomic, assign, readonly) float progress;
 @property (nonatomic, assign, readonly) float speed;
+@property (nonatomic, assign, readonly) int remainTime;
 
 
 @end
